@@ -5,6 +5,8 @@ import subprocess
 from CTkMessagebox import CTkMessagebox
 import shared
 import json
+import threading
+import time
 
 class MainTab(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
@@ -17,8 +19,8 @@ class MainTab(ctk.CTkFrame):
         self.info_text.pack(pady=30)
         self.dropdown_var = ctk.StringVar(value="Select a OS")
         
-        self.dropdown_options = [f for f in os.listdir("os_imgs") if f.endswith(('.qcow','.qcow2'))]        
-     
+        self.dropdown_options = [f for f in os.listdir("sandbox_images") if f.endswith(('.json'))]        
+
         self.dropdown = ctk.CTkOptionMenu(
             self,
             variable=self.dropdown_var,
@@ -52,13 +54,13 @@ class MainTab(ctk.CTkFrame):
 
         self.launch_button = ctk.CTkButton(self, text=shared.translate("home","launch_sandbox","Launch Sandbox!"), command=self.launch_sandbox)
         self.launch_button.pack(pady=20)
-        
+        update_thread = threading.Thread(target=self.update_dropdown).start()
     
     def on_dropdown_select(self, choice):
-        self.OS_QCOW = os.path.join("os_imgs", choice)
-        tmp_json = json.loads(open(self.OS_QCOW +".json","r").read())
+        
+        tmp_json = json.loads(open("sandbox_images/"+choice,"r").read())
         self.info_text.configure(text="Welcome to Linux Sandbox Manager \n-------\n\n Selected OS : \n"+tmp_json["text"]+"\n\n Login :\n"+f"Username: {tmp_json["login"]["username"]}\nPassword: {tmp_json["login"]["password"]}")
-
+        self.OS_QCOW = os.path.join("sandbox_images", tmp_json["qcow"])
     def checkbox_run_in_temp_mode_func(self):  
 
             if self.checkbox_run_in_temp_mode.get():
@@ -126,4 +128,8 @@ class MainTab(ctk.CTkFrame):
             text=shared.translate("home", "launching_sandbox", "Kill Sandbox"),
             command=kill_sandbox
         )
-    
+    def update_dropdown(self):
+        while True:
+            self.dropdown_options = [f for f in os.listdir("sandbox_images") if f.endswith(('.json'))]     
+            self.dropdown.configure(values=self.dropdown_options)
+            time.sleep(5)
