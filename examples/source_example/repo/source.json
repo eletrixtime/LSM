@@ -1,0 +1,8 @@
+
+{
+    "repo_name":"Official LSM Repo",
+    "website":"eletrix.fr",
+    "repo":[
+        {"name":"Debian 12 XFCE","description":"Just... debian 12 with XFCE !","zip_path":"qcow/debian12_xfce.zip","id":1}
+    ]
+}
