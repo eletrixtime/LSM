@@ -1,14 +1,15 @@
 {
     "vm":{
-        "memory":"4028",
+        "memory":"2048",
         "cpu_core":"2"
     },
     "qemu":{
         "other_args":"THIS PARAMETERS IS NOT IMPLEMENTED YET"
     },
+    "note":"NOTE: LSM put automatilly the source.json at the end of the url",
     "downloads":[
-        "NOT IMPLEMENTED"
+        "https://lsm.eletrix.fr/repo"
     ],
-    "version":"1.0.0",
+    "version":"PRE-1.0.1",
     "lang":"en"
 }
