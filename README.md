@@ -16,7 +16,7 @@
 ## 🛠️ Quick Start  
 
 ### Prerequisites  
-- Linux host (with QEMU)  
+- Linux/Windows (MacOS is not tested) host (with QEMU)  
 - `qemu`, `python3` installed  
 
 ### Install & Run  
