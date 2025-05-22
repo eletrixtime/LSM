@@ -1,0 +1,9 @@
+{
+    "name":"my image",
+    "version":"1.0.0",
+    "source":"Your Repo Name",
+    "text":"blablabla",
+    "qcow":"myimage.qcow2",
+
+    "login":{"username":"sandbox_user","password":"123"}
+}
