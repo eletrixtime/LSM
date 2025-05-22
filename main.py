@@ -1,40 +1,35 @@
 import customtkinter as ctk
 from tabs.main_tab import MainTab
 from tabs.about_tab import AboutTab
+from tabs.download_tab import DownloadTab
 import shared 
 from CTkMessagebox import CTkMessagebox
 import psutil
 import os
 import traceback
 import time
+from utils.download import download
+from utils.chk_qemu import check_for_qemu
 #====
 
 os.makedirs(name="assets",exist_ok=True)
-os.makedirs(name="os_imgs",exist_ok=True)
+os.makedirs(name="sandbox_images",exist_ok=True)
 
 #=====
-def download():
-    import os
-    import requests
-    import zipfile
-    if not os.path.exists("os_imgs") or not os.listdir("os_imgs"):
-        print("Downloading ZIP of build-in images please wait...")
-        
-        response = requests.get("https://cdn.eletrix.fr/public/static/image.zip", stream=True)
-        response.raise_for_status()  
-        with open("temp.zip", "wb") as f:
-            for chunk in response.iter_content(chunk_size=8192):
-                if chunk:
-                    f.write(chunk)
-        
-        with zipfile.ZipFile("temp.zip", 'r') as zip_ref:
-            zip_ref.extractall("os_imgs")
-        
-        os.remove("temp.zip")
-        print("Download and extraction completed successfully! \n Launching app!")
-download()
+print("LSM - Welcome to Linux Sandbox Manager")
+print(f"Version : {shared.CONFIG_JSON['version']}")
+print("\n")
+#download("https://cdn.eletrix.fr/public/static/image.zip",False) not required anymore
+if not check_for_qemu():
+    msg = CTkMessagebox(
+        title="LSM - Missing QEMU",
+        message="LSM requires QEMU to work properly.\n\nPlease install it and relaunch LSM.",
+        icon=""
+    )
+    response = msg.get()
+    exit()
 try:
-    
+   
     class Core(ctk.CTk):
         def __init__(self):
             super().__init__()
@@ -52,6 +47,7 @@ try:
 
             
             self.maintab_prime = MainTab(self.home_tab) 
+            self.download_tab = DownloadTab(self.download_tab)
             self.about_tab = AboutTab(self.about_tab)
     if __name__ == "__main__":
 #        0/0
@@ -79,7 +75,7 @@ Linux Sandbox Manager Manager has crashed :(
     
 # Installed OS
 
-    {os.listdir("os_imgs")}
+    {os.listdir("sandbox_images")}
 
 
 Timestamp : {time.time()}
