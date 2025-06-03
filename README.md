@@ -1,6 +1,6 @@
 # 🚀 LSM - Linux Sandbox Manager  
 
-**LSM** (*Linux Sandbox Manager*) is a GUI tool for creating and managing ephemeral virtual machines ("Sandbox Machines"). Perfect for development, testing, and secure process isolation.  
+**LSM** (*Linux Sandbox Manager*) is a GUI tool for creating and managing ephemeral virtual machines ("Sandbox Machines"). Perfect for development, testing.  
 
 ---
 
@@ -10,7 +10,7 @@
 - **Secure Isolation** – Run untrusted code or apps in a contained environment.  
 - **Minimal Overhead** – Optimized for performance (QEMU-based).  
 - **Customizable** – Choose OS images.
-- **Break anything** - sudo rm -rf /*? Do it. The sandbox self-destructs anyway.
+
 ---
 
 ## 🛠️ Quick Start  
@@ -30,7 +30,6 @@ python3 main.py
 
 ## 🎯 Use Cases  
 - **Developers**: Test apps in clean environments.  
-- **Security Researchers**: Analyze malware safely.  
 - **DevOps**: Rapid prototype infrastructure.  
 
 ---
